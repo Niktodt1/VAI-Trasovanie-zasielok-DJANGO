@@ -1,0 +1,112 @@
+
+{% extends 'main.html' %}
+{% block content %}
+{% load static %}
+{% with address=company.addressId %}
+
+<div class="container-fluid col-12">
+    <div class="row">
+        <div class="container col-12 col-md-6">
+            <div class="row">
+                <div class="container col-3">
+                <img class="card-img-top center-text pt-3" src="{{company.icon.url }" alt="Card image" style="width:90%">
+            </div>
+            <div class="container col-9">
+                <h1>{{ company.fullCompanyName }}</h1>
+            </div>
+            </div>
+            <div class="p-0 mt-2">
+                    <h5>Konktaktné údaje:</h5>
+                    <ul class="ms-0">
+                        <li>
+                            <div class="row">
+                                <div class="col-md-auto ps-2 pe-1 ">
+                                    <img src="{% static 'images/globe.svg' %}" alt="web" class="me-1">
+                                </div>
+                                <div class="col-md-auto p-0">
+                                    <p class="boldText">Webstránka:</p>
+                                </div>
+                                <div class="col-md-auto">
+                                    <a href="{{ deliveryCompany.website }}">
+                                        {{ company.website }}
+                                    </a>
+                                </div>
+                            </div>
+
+                        </li>
+                        <li>
+                            <div class="row">
+                                <div class="col-md-auto ps-2 pe-1 ">
+                                    <img src="{% static 'images/envelope-fill.svg' %}" alt="email" class="me-1">
+                                </div>
+                                <div class="col-md-auto p-0">
+                                    <p class="boldText">Email:</p>
+                                </div>
+                                <div class="col-md-auto">
+                                    <a href="mailto:{{ deliveryCompany.email }}">
+                                        {{ company.email }}
+                                    </a>
+                                </div>
+                            </div>
+
+                        </li>
+                        <li>
+                            <div class="row">
+                                <div class="col-md-auto ps-2 pe-1 ">
+                                    <img src="{% static 'images/telephone-fill.svg' %}" alt="tel" class="me-1">
+                                </div>
+                                <div class="col-md-auto p-0">
+                                    <p class="boldText">Telefón:</p>
+                                </div>
+                                <div class="col-md-auto">
+                                   {{ company.phone }}
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="row">
+                                <div class="col-md-auto ps-2 pe-2 ">
+                                     <img src="{% static 'images/house-door-fill.svg' %}" alt="domov">
+                                </div>
+                                <div class="col-md-auto">
+                                    <div class="row">
+                                        <div class="col-md-auto p-0">
+                                            <p class="boldText">Adresa:</p>
+                                        </div>
+                                        <div class="col-md-auto">
+                                            {{ address.street }} {{ address.streetNumber }}
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-auto p-0">
+                                            <p class="boldText">Mesto:</p>
+                                        </div>
+                                        <div class="col-md-auto">
+                                            {{ address.zipCode}} {{ address.city }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </li>
+                    </ul>
+                </div>
+        </div>
+
+        <div class="container col-10 col-md-6">
+            <div> MAP HERE</div>
+        </div>
+
+    </div>
+
+</div>
+<hr>
+<div class="container-fluid col-11">
+     <h5>Popis spoločnosti:</h5>
+    <div class="container-fluid">
+        {{ company.companyDescription }}
+    </div>
+</div>
+
+{% endwith %}
+{% endblock content %}

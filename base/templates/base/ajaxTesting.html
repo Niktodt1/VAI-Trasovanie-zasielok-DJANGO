@@ -1,0 +1,273 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>AJAX TEST</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+            crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/91bb1fdf20.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/styl.css' %}">
+    <script type="module" src="{% static 'js/main.js' %}"></script>
+
+</head>
+<body>
+
+
+
+<div>
+    <h2>Django unchained!</h2>
+</div>
+<div>
+    <h2>Sad Django test!</h2>
+    <div id="test">
+
+    </div>
+</div>
+<div id="packages_django">
+    {% if total_packages > 0 %}
+    {% for package in packages %}
+    {% with destinationAddress=package.receiverUserId.addressId company=package.companyId deliveryCompany=package.deliveryCompanyId courier=package.courierId %}
+    <div id="package-{{ package.id }}" class="card">
+        <div class="card-header karta-zasielka-mini p-1 ">
+            <div id="{{ package.id }}">
+                <div class="container-fluid col-12">
+                    <div class="row">
+                        <div class="container-fluid col-2 ikona-obchod-mini">
+                            <img src="{% static company.iconPath %}" alt="{{ company.companyCode }}" class="ikona-obchodu-mini">
+                        </div>
+                        <div class="container-fluid col-9 objednavka-mini">
+                            <b>Objednávka:</b> {{ package.id }}<br>
+                            <b>Na adresu:</b>
+                            {{ destinationAddress.street }} {{ destinationAddress.streetNumber }}, {{ destinationAddress.zipCode }} {{ destinationAddress.city }}
+                        </div>
+                        <div class="container-fluid col-1 btn-roztiahni-mini p-0 ">
+                            <a class="btn text-center" data-bs-toggle="collapse" href="#collapse{{ package.id }}">X</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-sm-2 p-1">
+                            <div class="row">
+                                <div class="container-fluid col-6 col-sm-12 datum-objednavky-mini boldText">Dátum <br>objednávky:</div>
+                                <div class="container-fluid col-4 col-sm-12 datum-mini">{{ package.dateOfOrder }}</div>
+                            </div>
+
+                        </div>
+                        <div class="col-12 col-sm-7 p-1">
+                            {% with stages=package.past_stages.all lastStage=package.past_stages.latest stages_count=package.past_stages.count %}
+                            <div class="container-fluid mt-2">
+                                {% if stages_count == 1 %}
+                                <div class="progress me-1 ms-1" style="height: 8px;">
+                                    <div class="progress-bar progress-bar-animated progress-bar-striped bg-success priebeh20 priebeh-objednavky-mini" aria-label="Segment one"></div>
+                                    <div class="progress-bar bg-secondary priebeh80 priebeh-objednavky-mini" aria-label="Segment two"></div>
+                                </div>
+                                {% elif stages_count == 2 %}
+                                <div class="progress me-1 ms-1" style="height: 8px;">
+                                    <div class="progress-bar progress-bar-animated progress-bar-striped bg-success priebeh40 priebeh-objednavky-mini" aria-label="Segment one"></div>
+                                    <div class="progress-bar bg-secondary priebeh60 priebeh-objednavky-mini" aria-label="Segment two"></div>
+                                </div>
+                                {% elif stages_count == 3 %}
+                                <div class="progress me-1 ms-1" style="height: 8px;">
+                                    <div class="progress-bar progress-bar-animated progress-bar-striped bg-success priebeh60 priebeh-objednavky-mini" aria-label="Segment one"></div>
+                                    <div class="progress-bar bg-secondary priebeh40 priebeh-objednavky-mini" aria-label="Segment two"></div>
+                                </div>
+                                {% elif stages_count == 4 %}
+                                <div class="progress me-1 ms-1" style="height: 8px;">
+                                    <div class="progress-bar progress-bar-animated progress-bar-striped bg-success priebeh80 priebeh-objednavky-mini" aria-label="Segment one"></div>
+                                    <div class="progress-bar bg-secondary priebeh20 priebeh-objednavky-mini" aria-label="Segment two"></div>
+                                </div>
+                                {% elif stages_count == 5 %}
+                                <div class="progress me-1 ms-1" style="height: 8px;">
+                                    <div class="progress-bar progress-bar-animated progress-bar-striped bg-success priebeh100 priebeh-objednavky-mini" aria-label="Segment one"></div>
+                                    <div class="progress-bar bg-secondary priebeh0 priebeh-objednavky-mini" aria-label="Segment two"></div>
+                                </div>
+                                {% else %}
+                                <div class="progress me-1 ms-1" style="height: 8px;">
+                                    <div class="progress-bar progress-bar-animated progress-bar-striped bg-success priebeh0 priebeh-objednavky-mini" aria-label="Segment one"></div>
+                                    <div class="progress-bar bg-secondary priebeh100 priebeh-objednavky-mini" aria-label="Segment two"></div>
+                                </div>
+                                {% endif %}
+
+                                <!--
+                                <div class="btn-toolbar">
+                                    <button type="button" class="btn rounded-circle bg-success btn-dark tlacidlo-priebehu" data-bs-slide-to="0"></button>
+                                    <div class="spacer-mini-1"></div>
+                                    <button type="button" class="btn rounded-circle bg-success btn-dark tlacidlo-priebehu" data-bs-slide-to="1"></button>
+                                    <div class="spacer-mini-2"></div>
+                                    <button type="button" class="btn rounded-circle bg-success btn-dark tlacidlo-priebehu" data-bs-slide-to="2"></button>
+                                    <div class="spacer-mini-3"></div>
+                                    <button type="button" class="btn rounded-circle bg-success btn-dark tlacidlo-priebehu" data-bs-slide-to="3"></button>
+                                    <div class="spacer-mini-4"></div>
+                                    <button type="button" class="btn rounded-circle bg-secondary btn-dark tlacidlo-priebehu" data-bs-slide-to="4"></button>
+                                </div>
+                                -->
+
+                            </div>
+                            <div class="container-fluid priebeh-mini mt-1">
+                                <!-- Carousel -->
+                                <div class="carousel" data-bs-ride="false" id="carousel{{ package.id }}" data-bs-wrap="false">
+
+                                    <div class="carousel-inner">
+                                        {% for stage in stages %}
+
+                                        <div class="carousel-item {% if forloop.last%} active {% endif %}">
+                                            <div class="container col-8">
+                                                <b> {{ stage.datetime }}</b><br>
+                                                {% if stage.stageCurrentId is None  %}
+                                                Neznáme
+                                                {% else %}
+                                                {{ stage.stageCurrentId.stageDescription }}
+                                                {% endif %}
+                                                <br>
+                                            </div>
+                                        </div>
+
+                                        {% endfor %}
+
+                                    </div>
+
+                                    <button class="carousel-control-prev" type="button" data-bs-target="#carousel{{ package.id }}" data-bs-slide="prev">
+                                        <span class="carousel-control-prev-icon bg-dark"></span>
+                                    </button>
+                                    <button class="carousel-control-next " type="button" data-bs-target="#carousel{{ package.id }}" data-bs-slide="next">
+                                        <span class="carousel-control-next-icon bg-dark"></span>
+                                    </button>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+                        <div class="col-12 col-sm-3 p-1">
+                            <div class="row">
+
+                                <div class="container-fluid col-6 col-sm-12 odhad-objednavky-mini boldText">
+                                    {% if stages_count >= 5 %}
+                                    {% if package.typeOfDelivery.deliveryText == "Na poštu" or package.typeOfDelivery.deliveryText == "Do boxu" or package.typeOfDelivery.deliveryText == "Zásielkovňa" %}
+                                    Zásielka je pripravená na vyzdvihnutie:
+                                    {% else %}
+                                    Kuriér bol naposledy videný:
+                                    {% endif %}
+                                    {% else %}
+                                    Predpokladaný termín doručenia:
+                                    {% endif %}
+                                </div>
+                                <div class="container-fluid col-4 col-sm-12 odhad-mini boldText greenText">
+                                    {% if stages_count >= 5 %}
+                                    {{ lastStage.lastSeen }}
+                                    {% else %}
+                                    {{ lastStage.estTimeOfDelivery }}
+                                    {% endif %}
+                                </div>
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="collapse{{ package.id }}" class="collapse karta-zasielka-maxi" data-bs-parent="#accordion">
+            <div class="card-body p-1">
+                <div class="container-fluid col-12">
+                    <div class="row">
+                        <div class="container-fluid col-6 mapa">
+                            <!--<img src="public/images/senohrad.png" alt="mapa">-->
+                            <?= "MAP PREVIEW HERE"?>
+                        </div>
+                        <div class="container-fluid col-6 kontakty-maxi" >
+                            <div class="row mt-3">
+                                <div class="container-fluid col-4 boldText">
+
+                                    Posledná známa<br>
+                                    poloha:
+                                </div>
+                                <div class="container col-8">
+                                    {{ lastStage.lastSeen }}
+                                </div>
+                            </div>
+                            {% endwith %}
+                            <div class="row mt-3">
+                                <div class="container-fluid col-4 kontakt-obchod boldText">Kontakt na<br> obchod:</div>
+                                <div class="container-fluid col-6 obchod">
+                                    <div>
+                                        <img src="{% static 'images/envelope-fill.svg' %}" alt="email">
+                                        <a href="mailto:{{ company.email }}">{{ company.email }}</a>
+                                    </div>
+                                    <div>
+                                        <img src="{% static 'images/telephone-fill.svg' %}" alt="telefon">
+                                        {{ company.phone }}
+                                    </div>
+
+                                </div>
+                                <div class="container-fluid col-2 overflow-hidden ikona-dopravca">
+                                    <img src="{% static company.iconPath %}" alt="{{ company.companyCode }}" class="ikona-obchodu-maxi">
+                                    {{ company.companyCode }}" ICON HERE" ?>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="container-fluid col-4 overflow-hidden kontakt-dopravca boldText">Kontakt na dopravcu:</div>
+                                <div class="container-fluid col-6 overflow-hidden dopravca">
+                                    <div>
+                                        <img src="{% static 'images/envelope-fill.svg' %}" alt="email">
+                                        <a href="mailto:{{ deliveryCompany.email }}">{{ deliveryCompany.email }}</a>
+                                    </div>
+                                    <div>
+                                        <img src="{% static 'images/telephone-fill.svg' %}" alt="telefon">
+                                        {{ company.phone }}
+                                    </div>
+                                </div>
+                                <div class="container-fluid col-2 overflow-hidden ikona-dopravca">
+                                    <img src="{% static deliveryCompany.iconPath %}" alt="{{ deliveryCompany.deliveryCompanyCode }}" class="ikona-obchodu-maxi">
+                                    {{ deliveryCompany.deliveryCompanyCode }}" ICON HERE" ?>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="container-fluid col-12 kontakt-kurier boldText">Zásielku Vám privezie:</div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="container-fluid col-6">
+                                    <img src="{% static courier.iconPath %}" alt="kurier" class="kurier-foto">
+
+                                </div>
+                                <div class="container-fluid col-6 kurier boldText">
+                                    {{ courier.name }} {{ courier.surname }}
+                                    <div>
+                                        <img src="{% static 'images/telephone-fill.svg' %}" alt="telefon">
+                                        {{ courier.phone }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endwith %}
+    {% endfor %}
+    {% else %}
+    <hr>
+    <h5 class="center">Akonáhle nejaké budete mať, zobrazia sa TU...</h5>
+    {% endif %}
+</div>
+
+<div>
+    <h2>LOOK AT ME!!!  I'm the dynamic website now!</h2>
+</div>
+<div id="packages_ajax">
+
+</div>
+</body>
+</html>

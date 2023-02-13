@@ -1,0 +1,104 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<div>
+    <form method="POST" action="">
+    {%csrf_token %}
+
+<!--    {{ form.as_p }}-->
+<!--    {{ account_form.as_p }}-->
+
+        <div class="mb-3">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-7 col-md-6">
+                    <div class="form-floating mb-3 mt-3">
+                        <input type="text" class="form-control" id="username" placeholder="Zadaj svoj login" value="{{ user.username }}" name="username" required>
+                        <label for="username">{{ form.username.label }}</label>
+                        <div class="valid-feedback">Valid.</div>
+                        <div class="invalid-feedback">Please fill out this field.</div>
+                    </div>
+                </div>
+                <div class="col-sm-5 col-md-6">
+                    <a class="btn btn-success m-2 punchPinkDark" href="{% url 'changePassword' %}">Zmena hesla</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-md-6">
+                    <div class="form-floating mb-3 mt-3">
+                        <input type="text" class="form-control" id="name" placeholder="Zadaj meno" name="name" value="{{ account.name }}" required>
+                        <label for="name">{{ account_form.name.label }} </label>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-6">
+                    <div class="form-floating mb-3 mt-3">
+                        <input type="text" class="form-control" id="surname" placeholder="Zadaj priezvisko" name="surname" value="{{ account.surname }}" required>
+                        <label for="surname">{{ account_form.surname.label }}</label>
+                    </div>
+                </div>
+
+            </div>
+            <div class = "row">
+                <div class="col-5">
+                    <div class="form-floating mb-3 mt-3">
+                        <input type="number" class="form-control" id="phone" name="phone" value="{{ account.phone }}" required>
+                        <label for="phone">{{ account_form.phone.label }}</label>
+                    </div>
+                </div>
+                <div class="col-7">
+                    <div class="form-floating mb-3 mt-3">
+                        <input type="text" class="form-control" id="email" name="email" value="{{ account.email }}" required>
+                        <label for="email">{{ account_form.email.label }}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+
+    <hr>
+<!--    {{ address_form.as_p }}-->
+        <div class="mb-3">
+        <div class="container-fluid">
+            <div class="row">
+            <div class="col-sm-5 col-md-3">
+
+                <div class="form-floating mb-3 mt-3">
+                    <input type="text" class="form-control" id="city" placeholder="Zadaj mesto/obec" name="city" value="{{ account.addressId.city }}" required>
+                    <label for="city">{{ address_form.city.label }}</label>
+                    <div class="valid-feedback">Valid.</div>
+                    <div class="invalid-feedback">Please fill out this field.</div>
+                </div>
+            </div>
+            <div class="col-sm-7 col-md-5">
+                <div class="form-floating mb-3 mt-3">
+                    <input type="text" class="form-control" id="street" placeholder="Zadaj ulicu" name="street" value="{{ account.addressId.street }}" required>
+                    <label for="street">{{ address_form.street.label }}</label>
+                </div>
+            </div>
+            <div class="col-6 col-sm-4 col-md-2">
+                <div class="form-floating mb-3 mt-3">
+                    <input type="number" class="form-control" id="zipCode" placeholder="Zadaj PSČ" name="zipCode" value="{{ account.addressId.zipCode }}" required>
+                    <label for="zipCode">{{ address_form.zipCode.label }}</label>
+                </div>
+            </div>
+            <div class="col-6 col-sm-4 col-md-2">
+                <div class="form-floating mb-3 mt-3">
+                    <input type="number" class="form-control" id="streetNumber" placeholder="Zadaj súpisné číslo" name="streetNumber" value="{{ account.addressId.streetNumber }}" required>
+                    <label for="streetNumber">{{ address_form.streetNumber.label }}</label>
+                </div>
+            </div>
+
+        </div>
+        </div>
+        </div>
+
+
+        <a href="{% url 'home' %}" class="btn btn-danger">Zahodiť zmeny</a>
+        <button type="submit" class="btn btn-primary">Uložiť údaje</button>
+  </form>
+
+</div>
+
+
+{% endblock content %}

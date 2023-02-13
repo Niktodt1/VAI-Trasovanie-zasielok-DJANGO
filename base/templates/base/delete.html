@@ -1,0 +1,16 @@
+
+{% extends 'main.html' %}
+
+{% block content %}
+
+<form method="POST" action="">
+    {% csrf_token %}
+    <p>
+        Ste si istí že chcete odtrániť tento objekt: "{{obj}}"?
+    </p>
+    <a href="{{request.META.HTTP_REFERER}}"> Naspäť </a>
+    <button type="submit" class="btn btn-danger">Potvrdiť</button>
+
+</form>
+
+{% endblock content %}

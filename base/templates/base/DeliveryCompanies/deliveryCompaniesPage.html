@@ -1,0 +1,146 @@
+
+{% extends 'main.html' %}
+{% block content %}
+{% load static %}
+
+
+<hr>
+<div class="container-fluid col-12">
+    <div class="row">
+        <div class="container col-8">
+            {% if request.user.is_staff %}
+                <a href="{% url 'newDeliveryCompany' %}" class="btn btn-success">Pridať novú spoločnosť</a>
+            {% endif %}
+            <h1>Naši prepravcovia:</h1>
+        </div>
+        <div class="container col-4"></div>
+    </div>
+</div>
+
+
+<div class="container mt-3">
+    <div class="row">
+
+        {% for deliveryCompany in deliveryCompanies %}
+        {% with address=deliveryCompany.addressId image=deliveryCompany.iconPath %}
+
+            <div class="card m-1 col-sm-3 col-md-2 text-bg-light" style="min-width:250px">
+                <img class="card-img-top center-text pt-3" src="{{ deliveryCompany.icon.url }}" alt="Card image" style="width:50%">
+
+                <div class="card-body">
+                    <h4 class="card-title">{{ deliveryCompany.fullCompanyName }}</h4>
+<!--                    <p class="card-text">{{ deliveryCompany.deliveryCompanyDescription }}</p>-->
+                    <div class="p-0">
+                        <h6>Konktaktné údaje:</h6>
+                        <ul class="p-0">
+                            <li>
+                                <a href="{{ deliveryCompany.website }}">
+                                    <img src="{% static 'images/globe.svg' %}" alt="web" class="me-1">
+                                    {{ deliveryCompany.website }}
+                                </a>
+                            </li>
+                            <li>
+                                <a href="mailto:{{ deliveryCompany.email }}">
+                                    <img src="{% static 'images/envelope-fill.svg' %}" alt="email" class="me-1">
+                                    {{ deliveryCompany.email }}
+                                </a>
+                            </li>
+                            <li>
+                                <img src="{% static 'images/telephone-fill.svg' %}" alt="tel" class="me-1">
+                                {{ deliveryCompany.phone }}
+                            </li>
+                            <li>
+                                <img src="{% static 'images/house-door-fill.svg' %}" alt="domov">
+                                {{ deliveryCompany.addressId.street }} {{ address.streetNumber }}<br>
+                                {{ address.zipCode}} {{ address.city }}
+                            </li>
+                        </ul>
+                    </div>
+
+
+                </div>
+                <div class="card-footer text-bg-light text-center">
+                        <a href="" class="btn btn-primary">Ohodnotiť</a>
+                        <a href="{% url 'deliveryCompanyDetail' deliveryCompany.id %}" class="btn btn-success punchPinkDark m-1">Detail spoločnosti</a>
+
+                        {% if request.user.is_staff %}
+                        <a href="{% url 'editDeliveryCompany' deliveryCompany.id %}" class="btn btn-warning m-1">Editovať spoločnosť</a>
+                        <a href="{% url 'deleteDeliveryCompany' deliveryCompany.id %}" class="btn btn-danger m-1">Zmazať spoločnosť</a>
+                        {% endif %}
+                </div>
+            </div>
+
+        <?php } ?>
+        {% endwith %}
+        {% endfor %}
+    </div>
+
+</div>
+
+<hr>
+<div class="container-fluid">
+    <div class="row top-oznam">
+        <div class="container col-8">
+            {% if request.user.is_staff %}
+                <a href="{% url 'createCompany' %}" class="btn btn-success">Pridať nový obchod</a>
+            {% endif %}
+            <h1>Podporované obchody:</h1>
+        </div>
+        <div class="container col-4"></div>
+    </div>
+</div>
+
+<div class="container mt-3">
+    <div class="row">
+        {% for company in companies %}
+        {% with address=company.addressId %}
+
+        <div class="card m-1 col-sm-3 col-md-2 text-bg-light" style="min-width:250px">
+            <img class="card-img-top center-text pt-3" src="{{ company.icon.url }}" alt="Card image" style="width:50%">
+            <div class="card-body">
+                <h4 class="card-title">{{ company.companyName }}</h4>
+<!--                 <p class="card-text">{{ company.companyDescription }}</p>-->
+                <div class="p-0">
+                    <h6>Konktaktné údaje:</h6>
+                    <ul class="p-0">
+                        <li>
+                            <a href="{{ company.website }}">
+                                <img src="{% static 'images/globe.svg' %}" alt="web" class="me-1">
+                                {{ company.website }}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ company.email }}">
+                                <img src="{% static 'images/envelope-fill.svg' %}" alt="email" class="me-1">
+                                {{ company.email }}
+                            </a>
+                        </li>
+                        <li>
+                            <img src="{% static 'images/telephone-fill.svg' %}" alt="tel" class="me-1">
+                            {{ company.phone }}
+                        </li>
+                        <li>
+                            <img src="{% static 'images/house-door-fill.svg' %}" alt="domov">
+                            {{ address.street }} {{ address.streetNumber }}<br>
+                            {{ address.zipCode }} {{ address.city }}
+                        </li>
+                    </ul>
+                </div>
+
+
+            </div>
+            <div class="card-footer text-bg-light text-center">
+                <a href="https://obchody.heureka.sk/alza-sk/recenze/" class="btn btn-primary m-1">Ohodnotiť</a>
+                <a href="{% url 'companyDetail' company.id %}" class="btn btn-success punchPinkDark m-1">Detail obchodu</a>
+                {% if request.user.is_staff %}
+                <a href="{% url 'editCompany' company.id %}" class="btn btn-warning m-1">Editovať obchod</a>
+                <a href="{% url 'deleteCompany' company.id %}" class="btn btn-danger m-1">Zmazať obchod</a>
+                {% endif %}
+            </div>
+        </div>
+        {% endwith %}
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,189 @@
+
+{% extends 'main.html' %}
+{% block content %}
+
+
+<hr>
+<div class="container-fluid col-12">
+    <div class="row mt-3">
+        <div class="container col-8">
+            <h1>Nová zásielka</h1>
+        </div>
+        <div class="container col-4">
+            <button data-bs-toggle="collapse" data-bs-target="#cez-kod" class="btn btn-primary">Mám kód zásielky!</button>
+        </div>
+    </div>
+</div>
+
+<div id="cez-kod" class="collapse">
+    <div class="row">
+        <div class="form-floating mb-3 mt-3 col-sm-5">
+            <input type="text" class="form-control" id="input-cislo" placeholder="#Číslo">
+            <label for="input-cislo">Sem zadajte číslo zásielky</label>
+        </div>
+        <div class="col-sm-5 mt-3">
+            <button type="button" class="btn btn-success m-2 punchPinkDark">Pridať novú zásielku</button>
+        </div>
+
+    </div>
+</div>
+<hr>
+
+<form action="" method="POST">
+    {% csrf_token %}
+
+    {% if page == 'unregistered' %}
+    <h6>Osobné údaje príjemcu</h6>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-10 col-sm-6">
+                <div class="form-floating mb-3 mt-3">
+                    <input type="text" class="form-control" id="name" placeholder="Zadaj svoje meno" name="name" required>
+                    <label for="name">Krstné meno</label>
+                    <div class="valid-feedback">Valid.</div>
+                    <div class="invalid-feedback">Please fill out this field.</div>
+                </div>
+            </div>
+            <div class="col-10 col-sm-6">
+                <div class="form-floating mb-3 mt-3">
+                    <input type="text" class="form-control" id="surname" placeholder="Zadaj svoje priezvisko" name="surname" required>
+                    <label for="surname">Priezvisko</label>
+                </div>
+            </div>
+
+            <!--
+            meno priezvisko
+            email číslo
+            bydlisko
+
+            adresa doručenia
+            obchodník
+            dátum a čas objednávky
+
+            sposob doručenia
+            meno a priezvisko kuriéra
+            číslo kuriéra
+            -->
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-7 col-md-6">
+                <div class="form-floating mb-3 mt-3">
+                    <input type="email" class="form-control" id="email" placeholder="Zadaj svoj email" name="email" required>
+                    <label for="email">Emailová adresa</label>
+                </div>
+            </div>
+            <div class="col-sm-5 col-md-4">
+                <div class="form-floating mb-3 mt-3">
+                    <input type="tel" class="form-control" id="phone" placeholder="Zadaj svoje telefónne číslo" name="phone" required>
+                    <label for="phone">Telefónne číslo</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <h6>Adresa doručenia</h6>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-5 col-md-3">
+
+                <div class="form-floating mb-3 mt-3">
+                    <input type="text" class="form-control" id="city" placeholder="Zadaj mesto/obec" name="city" required>
+                    <label for="city">Mesto alebo obec</label>
+                    <div class="valid-feedback">Valid.</div>
+                    <div class="invalid-feedback">Please fill out this field.</div>
+                </div>
+            </div>
+            <div class="col-sm-7 col-md-5">
+                <div class="form-floating mb-3 mt-3">
+                    <input type="text" class="form-control" id="street" placeholder="Zadaj ulicu" name="street" required>
+                    <label for="street">Ulica</label>
+                </div>
+            </div>
+            <div class="col-6 col-sm-4 col-md-2">
+                <div class="form-floating mb-3 mt-3">
+                    <input type="number" class="form-control" id="zipCode" placeholder="Zadaj PSČ" name="zipCode" required>
+                    <label for="zipCode">PSČ</label>
+                </div>
+            </div>
+            <div class="col-6 col-sm-4 col-md-2">
+                <div class="form-floating mb-3 mt-3">
+                    <input type="number" class="form-control" id="streetNumber" placeholder="Zadaj súpisné číslo" name="streetNumber" required>
+                    <label for="streetNumber">Súpisné č.</label>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    {% endif %}
+
+    <hr>
+
+    <h6>Detaily zásielky</h6>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-5">
+                <label for="companyId" class="form-label">Obchod (vyber si jeden):</label>
+                <select class="form-select" id="companyId" name="companyId" required>
+                    <option>Obchod (vyber si jeden)</option>
+                    {% for company in companies %}
+                        <option label="{{ company.companyCode }}">{{ company.id }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-6 col-md-4">
+                <div class="form-floating mb-3 mt-3">
+                    <input type="datetime-local" class="form-control" id="dateOfOrder" name="dateOfOrder" required>
+                    <label for="dateOfOrder">Dátum objednania</label>
+                </div>
+            </div>
+<!--            <div class="col-md-3">-->
+<!--                <div class="form-floating mb-3 mt-3">-->
+<!--                    <input type="time" class="form-control" id="datetime" name="datetime" required>-->
+<!--                    <label for="datetime">Čas objednania</label>-->
+<!--                </div>-->
+<!--            </div>-->
+
+        </div>
+    </div>
+
+
+    <hr>
+    <h6>Detaily doručenia</h6>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-5">
+                <label for="deliveryCompanyId" class="form-label">Prepravca (vyber si jedného):</label>
+                <select class="form-select" id="deliveryCompanyId" name="deliveryCompanyId" required>
+                    <option>Prepravca (vyber si jedného)</option>
+                    {% for deliCompany in deliveryCompanies %}
+                        <option label="{{ deliCompany.deliveryCompanyCode }}">{{ deliCompany.id }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-5">
+                <label for="typeOfDelivery" class="form-label">Spôsob doručenia (vyber si jeden):</label>
+                <select class="form-select" id="typeOfDelivery" name="typeOfDelivery" required>
+                    <option>Spôsob doručenia (vyber si jeden)</option>
+                    {% for code in deliveryCodes %}
+                        <option label="{{ code.deliveryText }}">{{ code.id }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+    </div>
+
+
+    <hr>
+    <div class="container-fluid text-center">
+        <h5>Dokončenie zásielky</h5>
+        <button type="submit" class="btn btn-primary">Potvrdiť zásielku</button>
+    </div>
+</form>
+
+
+{% endblock content %}

@@ -1,0 +1,124 @@
+{% extends 'main.html' %}
+{% block content %}
+{% load static %}
+
+
+<hr>
+<div class="container-fluid col-12">
+    <div class="row">
+        <div class="container col-8">
+
+            {% if page == 'edit' %}
+                <h1>Editácia prepravcu: {{ deliveryCompany.deliveryCompanyCode }}</h1>
+            {% else %}
+            <h1>Pridanie nového prepravcu</h1>
+            {% endif %}
+        </div>
+        <div class="container col-4"></div>
+    </div>
+</div>
+
+
+
+
+
+
+<form method="POST">
+  {% csrf_token %}
+<!--    {{ deliveryCompany_form.as_p }}-->
+<!--    {{ address_form.as_p }}-->
+
+<!--    <input type="hidden" value="<?= $deliveryCompany->getId() ?>" name="id">-->
+    <div class="mb-3">
+        <label for="fullCompanyName" class="form-label">Celý názov spoločnosti:</label>
+        <input type="text" class="form-control" id="fullCompanyName" name="fullCompanyName" value="{{ deliveryCompany.fullCompanyName }}" required>
+    </div>
+    <div class="mb-3">
+        <label for="deliveryCompanyCode" class="form-label">Kód spoločnosti (skrátený názov alebo skratka):</label>
+        <input type="text" class="form-control" id="deliveryCompanyCode" name="deliveryCompanyCode" value="{{ deliveryCompany.deliveryCompanyCode }}" required>
+    </div>
+    <div class="mb-3">
+        <label for="deliveryCompanyDescription" class="form-label">Popis spoločnosti (skrátený názov alebo skratka):</label>
+        <textarea type="text" class="form-control" id="deliveryCompanyDescription" name="deliveryCompanyDescription" style="height: 180px">{{ deliveryCompany.deliveryCompanyDescription }}</textarea>
+    </div>
+    <div class="mb-3">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-5 col-md-3">
+
+                    <div class="form-floating mb-3 mt-3">
+                        <input type="text" class="form-control" id="city" placeholder="Zadaj mesto/obec" value="{{ deliveryCompany.addressId.city }}" name="city" required>
+                        <label for="city">Mesto alebo obec kde spoločnost sídli</label>
+                        <div class="valid-feedback">Valid.</div>
+                        <div class="invalid-feedback">Please fill out this field.</div>
+                    </div>
+                </div>
+                <div class="col-sm-7 col-md-5">
+                    <div class="form-floating mb-3 mt-3">
+                        <input type="text" class="form-control" id="street" placeholder="Zadaj ulicu" name="street" value="{{ deliveryCompany.addressId.street }}" required>
+                        <label for="street">Ulica sídla spoločnosti</label>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-4 col-md-2">
+                    <div class="form-floating mb-3 mt-3">
+                        <input type="number" class="form-control" id="zipCode" placeholder="Zadaj PSČ" name="zipCode" value="{{ deliveryCompany.addressId.zipCode }}" required>
+                        <label for="zipCode">PSČ spoločnosti</label>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-4 col-md-2">
+                    <div class="form-floating mb-3 mt-3">
+                        <input type="number" class="form-control" id="streetNumber" placeholder="Zadaj súpisné číslo" name="streetNumber" value="{{ deliveryCompany.addressId.streetNumber }}" required>
+                        <label for="streetNumber">Súpisné č. spoločnosti</label>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <div class="row">
+            TODO: Ak je nová spoločnosˇ: zobraz default, ak sa edituje dynamicky zmeň na obrázok ktorý sa práve zvolil (možno tak ako Dajngo forms?)
+            <div class="col-3 col-sm-4 col-md-2">
+                <img src="{{ deliveryCompany.icon.url }}" class="ikona-obchodu-maxi">
+            </div>
+            <div class="col-9 col-sm-8 col-md-8">
+                <label for="icon" class="form-label">Obrázok alebo ikona spoločnosti:</label>
+                <!--        <input class="form-control" type="text" id="iconPath" name="iconPath" value="{{ deliveryCompany.iconPath }}">-->
+                <input class="form-control" type="file" accept="image/*" id="icon" name="icon" value="{{ deliveryCompany.icon.url }}">
+            </div>
+
+
+        </div>
+
+    </div>
+    <div class="mb-3">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="form-floating mb-3 mt-3">
+                    <input type="email" class="form-control" id="email" placeholder="Zadaj email" name="email" value="{{ deliveryCompany.email }}" required>
+                    <label for="email">Emailová adresa spoločnosti</label>
+                </div>
+                <div class="form-floating mb-3 mt-3">
+                    <input type="tel" class="form-control" id="phone" placeholder="Zadaj telefónne číslo" name="phone" value="{{ deliveryCompany.phone }}" required>
+                    <label for="phone">Telefónne číslo spoločnosti</label>
+                </div>
+                <div class="form-floating mb-3 mt-3">
+                    <input type="text" class="form-control" id="website" placeholder="Zadaj webstránku" name="website" value="{{ deliveryCompany.website }}" required>
+                    <label for="website">Webstránka spoločnosti</label>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+    {% if page == 'edit' %}
+    <a href="{% url 'deliveryCompanies' %}" class="btn btn-danger">Zahodiť zmeny</a>
+    {% endif %}
+
+    <button type="submit" class="btn btn-primary">Odoslať</button>
+
+</form>
+
+{% endblock content %}

@@ -1,0 +1,217 @@
+.navbar {
+    border-bottom: 1px solid grey;
+}
+
+.navbar-brand img {
+    width: 50px;
+}
+
+* {
+    box-sizing: border-box;
+    /*outline: 1px solid red;*/
+}
+
+.efekt-hover ul li:hover {
+    background-color: #D04A70;
+    border-radius: 0.25rem;
+    transition: 0.3s;
+}
+
+.whiteText {
+    color: white;
+}
+
+.boldText {
+    font-weight: bold;
+}
+
+.greenText {
+    color: green;
+}
+
+.myBorder {
+    border: #9A0E45 solid 1px;
+}
+
+.hlavicka {
+    width: 100%;
+}
+
+.main {
+    margin-top: 56px;
+    width: 100%;
+}
+
+.obsah {
+    margin-left: 16.66%;
+    width: 83.34%;
+    margin-top: 56px;
+    font-size: 12px;
+    padding: 15px;
+
+}
+
+.navigacia {
+    position: fixed;
+    height: 100%;
+    margin: 0;
+    width: 16.66%;
+}
+
+.karta-zasielka-mini {
+    padding: 0;
+}
+
+.karta-zasielka-maxi {
+    padding: 0;
+}
+
+.btn-roztiahni-mini button {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+}
+
+.priebeh-objednavky-mini {
+    height: 10px;
+}
+
+.priebeh20 {
+    width: 20%;
+}
+
+.priebeh40 {
+    width: 40%;
+}
+
+.priebeh60 {
+    width: 60%;
+}
+
+.priebeh80 {
+    width: 80%;
+}
+
+.priebeh100 {
+    width: 100%;
+}
+
+.spacer-mini-1 {
+    width: 15%;
+}
+.spacer-mini-2 {
+    width: 15%;
+}
+.spacer-mini-3 {
+    width: 15%;
+}
+.spacer-mini-4 {
+    width: 15%;
+}
+
+.tlacidlo-priebehu {
+    height: 26px;
+    width: 26px;
+}
+
+.ikona-obchodu-maxi {
+    object-fit: scale-down;
+    width: 100%;
+    height: 100%;
+}
+.ikona-obchodu-mini {
+    width: 40px;
+}
+
+.ikona-email {
+    color: #9A0E45;
+}
+
+.kurier-foto {
+    height: 80px;
+}
+
+.card-body ul li {
+    list-style: none;
+}
+
+.pata {
+    height: 5%;
+    text-align: center;
+    width: 100%;
+
+}
+
+.skryte {
+    visibility: hidden;
+}
+
+.mapa img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+
+@media (max-width: 768px) {
+    .navigacia {
+        visibility: hidden;
+    }
+    .skryte {
+        visibility: visible;
+    }
+    .obsah {
+        width: 100%;
+        margin-top: 56px;
+        margin-left: 0;
+        font-size: 10px;
+        padding: 5px;
+    }
+}
+
+/* Tooltip container */
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 1;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
+
+/*COLORS*/
+
+/*https://icolorpalette.com/color/d04a70*/
+.punchPink {
+    background-color: #D04A70;
+}
+.punchPinkLight {
+    background-color: #FF7C9E;
+}
+.punchPinkDark{
+    background-color: #9A0E45;
+}
+
+.darkred {
+    background-color: darkred;
+}
+
+/* FAVICON pomocou gauger.io */
