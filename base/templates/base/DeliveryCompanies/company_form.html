@@ -15,9 +15,14 @@
 
 <form method="POST">
     {% csrf_token %}
-    {{ address_form.as_p }}
-    {{ company_form.as_p }}
-    <button type="submit" class="btn btn-primary">Odoslať</button>
+    <div class="container-fluid ms-3">
+        {{ address_form.as_p }}
+        {{ company_form.as_p }}
+    </div>
+    <div class="container-fluid text-center">
+        <button type="submit" class="btn btn-primary">Odoslať</button>
+    </div>
+
 
 </form>
 

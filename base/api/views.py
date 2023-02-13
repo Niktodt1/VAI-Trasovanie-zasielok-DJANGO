@@ -37,29 +37,8 @@ def getPackages(request):
 @api_view(['GET'])
 def getPackage(request, pk):
     package = Package.objects.get(id=pk)
-    serializer = PackageSerializer(package, many=False)
+    serializer = PackageSerializerAndAssociated(package, many=False)
     return Response(serializer.data)
-
-    try:
-        package = Package.objects.get(id=pk)
-    except Package.DoesNotExist:
-        return JsonResponse({'message': 'The package does not exist'}, status=status.HTTP_404_NOT_FOUND)
-
-    if request.method == 'GET':
-        serializer = PackageSerializer(package)
-        return JsonResponse(serializer.data)
-
-    elif request.method == 'PUT':
-        package_data = JSONParser().parse(request)
-        serializer = PackageSerializer(package, data=package_data)
-        if serializer.is_valid():
-            serializer.save()
-            return JsonResponse(serializer.data)
-        return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    elif request.method == 'DELETE':
-        tutorial.delete()
-        return JsonResponse({'message': 'Tutorial was deleted successfully!'}, status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['GET'])
 def getUserPackages(request):

@@ -1,38 +1,48 @@
 
 {% extends 'main.html' %}
 {% block content %}
+{% load static %}
+
+{% block page_scripts %}
+    <script type="module" src="{% static 'js/validate_package.js' %}"></script>
+{% endblock %}
+
+
+
 
 
 <hr>
 <div class="container-fluid col-12">
     <div class="row mt-3">
-        <div class="container col-8">
+<!--        <div class="container col-8">-->
             <h1>Nová zásielka</h1>
-        </div>
-        <div class="container col-4">
-            <button data-bs-toggle="collapse" data-bs-target="#cez-kod" class="btn btn-primary">Mám kód zásielky!</button>
-        </div>
+<!--        </div>-->
+<!--        <div class="container col-4">-->
+<!--            <button data-bs-toggle="collapse" data-bs-target="#cez-kod" class="btn btn-primary">Mám kód zásielky!</button>-->
+<!--        </div>-->
     </div>
 </div>
 
-<div id="cez-kod" class="collapse">
-    <div class="row">
-        <div class="form-floating mb-3 mt-3 col-sm-5">
-            <input type="text" class="form-control" id="input-cislo" placeholder="#Číslo">
-            <label for="input-cislo">Sem zadajte číslo zásielky</label>
-        </div>
-        <div class="col-sm-5 mt-3">
-            <button type="button" class="btn btn-success m-2 punchPinkDark">Pridať novú zásielku</button>
-        </div>
+<!--<div id="cez-kod" class="collapse">-->
+<!--    <div class="row">-->
+<!--        <div class="form-floating mb-3 mt-3 col-sm-5">-->
+<!--            <input type="text" class="form-control" id="input-cislo" placeholder="#Číslo">-->
+<!--            <label for="input-cislo">Sem zadajte číslo zásielky</label>-->
+<!--        </div>-->
+<!--        <div class="col-sm-5 mt-3">-->
+<!--            <button type="button" class="btn btn-success m-2 punchPinkDark">Pridať novú zásielku</button>-->
+<!--        </div>-->
 
-    </div>
-</div>
+<!--    </div>-->
+<!--</div>-->
 <hr>
 
 <form action="" method="POST">
     {% csrf_token %}
 
     {% if page == 'unregistered' %}
+    <div style="display: none" id="unregistered">unregistered</div>
+
     <h6>Osobné údaje príjemcu</h6>
     <div class="container-fluid">
         <div class="row">
@@ -181,7 +191,10 @@
     <hr>
     <div class="container-fluid text-center">
         <h5>Dokončenie zásielky</h5>
-        <button type="submit" class="btn btn-primary">Potvrdiť zásielku</button>
+        <button id="submit" type="submit" class="btn btn-primary">Potvrdiť zásielku</button>
+        <div id="submit-info">
+            Formulár obsahuje chyby a nie je možné ho odoslať.
+        </div>
     </div>
 </form>
 

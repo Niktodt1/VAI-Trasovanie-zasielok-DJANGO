@@ -1,6 +1,9 @@
 {% extends 'main.html' %}
 {% block content %}
 {% load static %}
+{% block page_scripts %}
+<script type="module" src="{% static 'js/validate_deliveryCompany.js' %}"></script>
+{% endblock %}
 
 
 <hr>
@@ -80,12 +83,13 @@
         <div class="row">
             TODO: Ak je nová spoločnosˇ: zobraz default, ak sa edituje dynamicky zmeň na obrázok ktorý sa práve zvolil (možno tak ako Dajngo forms?)
             <div class="col-3 col-sm-4 col-md-2">
-                <img src="{{ deliveryCompany.icon.url }}" class="ikona-obchodu-maxi">
+                <img src="{% static 'images/deliveryCompany_default.svg' %}" class="ikona-obchodu-maxi">
             </div>
             <div class="col-9 col-sm-8 col-md-8">
                 <label for="icon" class="form-label">Obrázok alebo ikona spoločnosti:</label>
                 <!--        <input class="form-control" type="text" id="iconPath" name="iconPath" value="{{ deliveryCompany.iconPath }}">-->
-                <input class="form-control" type="file" accept="image/*" id="icon" name="icon" value="{{ deliveryCompany.icon.url }}">
+<!--                <input class="form-control" type="file" accept="image/*" id="icon" name="icon" value="{{ deliveryCompany.icon.url }}">-->
+                <input class="form-control" type="file" accept="image/*" id="icon" name="icon" value="{% static 'images/deliveryCompany_default.svg' %}">
             </div>
 
 
@@ -113,11 +117,17 @@
         </div>
     </div>
 
-    {% if page == 'edit' %}
-    <a href="{% url 'deliveryCompanies' %}" class="btn btn-danger">Zahodiť zmeny</a>
-    {% endif %}
+    <div class="container-fluid text-center">
+        {% if page == 'edit' %}
+        <a href="{% url 'deliveryCompanies' %}" class="btn btn-danger">Zahodiť zmeny</a>
+        {% endif %}
 
-    <button type="submit" class="btn btn-primary">Odoslať</button>
+        <button id="submit" type="submit" class="btn btn-primary">Odoslať</button>
+        <div id="submit-info">
+            Formulár obsahuje chyby a nie je možné ho odoslať.
+        </div>
+    </div>
+
 
 </form>
 

@@ -8,17 +8,29 @@
   <form method="POST" action="">
     {%csrf_token %}
 
-    <label>Login:</label>
-    <input type="text" name="username" placeholder="Zadaj svoj login (username)"/>
+    <div class="container text-center">
+      <div class="m-3">
+        <label>Login:</label>
+        <input type="text" name="username" placeholder="Zadaj svoj login (username)"/>
+      </div>
 
-    <label>Heslo:</label>
-    <input type="password" name="password" placeholder="Zadaj svoje heslo (password)"/>
+      <div class="m-3">
+        <label>Heslo:</label>
+        <input type="password" name="password" placeholder="Zadaj svoje heslo (password)"/>
+      </div>
 
-    <input type="submit" value="Prihlásenie"/>
+      <input type="submit" class="btn btn-success" value="Prihlásenie"/>
+
+      <p class="mt-3 mb-0">Ešte nie ste registrovaní?</p>
+
+      <a type="button" class="register-button btn btn-primary btn-sm punchPinkDark me-2" href="{% url 'register' %}">Registrácia</a>
+    </div>
+    </div>
   </form>
 
-  <p>Ešte nie ste registrovaní?</p>
-  <a href="{% url 'register' %}">Registrácia</a>
+
+
+
 </div>
 
 {% else %}
@@ -26,17 +38,26 @@
   <form method="POST" action="">
     {%csrf_token %}
 
-    {{form.as_p}}
-    <hr>
-    {{account_form.as_p}}
-    <hr>
-    {{address_form.as_p}}
+    <div class="container-fluid m-2">
+      {{form.as_p}}
+      <hr>
+      {{account_form.as_p}}
+      <hr>
+      {{address_form.as_p}}
+    </div>
 
-    <input type="submit" value="Odoslať"/>
+    <div class="container-fluid text-center">
+       <input type="submit" class="btn btn-success" value="Odoslať"/>
+    </div>
   </form>
 
-  <p>Už ste registrovaní?</p>
-  <a href="{% url 'login' %}">Prihlásenie</a>
+  <hr>
+  <div class="container-fluid">
+    <p class="mb-0">Už ste registrovaní?</p>
+    <a type="button" class="login-button btn btn-primary me-2" href="{% url 'login' %}">Prihlásenie</a>
+  </div>
+
+
 </div>
 {% endif %}
 

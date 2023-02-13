@@ -1,7 +1,15 @@
 
 {% extends 'main.html' %}
+
+
+
+
+
 {% block content %}
 {% load static %}
+{% block page_scripts %}
+    <script type="module" src="{% static 'js/home_script.js' %}"></script>
+{% endblock %}
 
 <div>
     <div>
@@ -198,7 +206,7 @@
                         <div class="row">
                             <div class="container-fluid col-6 mapa">
                                 <!--<img src="public/images/senohrad.png" alt="mapa">-->
-                                <?= "MAP PREVIEW HERE"?>
+                                MAP PREVIEW Coming Soon™
                             </div>
                             <div class="container-fluid col-6 kontakty-maxi" >
                                 <div class="row mt-3">
@@ -295,13 +303,16 @@
             <div class="col-sm-8">
                 <div class="form-floating mb-3 mt-3">
 
-                        <input type="text" class="form-control" id="input-cislo" name="input-cislo" placeholder="#Číslo zásielky">
-                        <label for="input-cislo">Sem zadajte číslo zásielky</label>
+                        <input type="text" class="form-control" id="input-cislo" name="input-cislo" placeholder="#Číslo zásielky" disabled>
+<!--                        <label for="input-cislo">Sem zadajte číslo zásielky</label>-->
+                    <label for="input-cislo">Coming Soon™</label>
                 </div>
             </div>
             <div class="col-sm-4 mt-3">
-                <button type="button" class="btn btn-success m-2 punchPinkDark">Pridať novú zásielku</button>
-                <button type="submit" class="btn btn-warning m-2" href="?c=home">Editovať existujúcu zásielku</button>
+                <button type="button" class="btn btn-success m-2 punchPinkDark" disabled>Pridať novú zásielku</button>
+                <p>Coming Soon™</p>
+                <button type="submit" class="btn btn-warning m-2" href="?c=home" disabled>Editovať existujúcu zásielku</button>
+                <p>Coming Soon™</p>
             </div>
         </form>
     </div>

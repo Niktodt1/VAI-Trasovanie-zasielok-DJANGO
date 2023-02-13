@@ -16,7 +16,7 @@
             crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/91bb1fdf20.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/styl.css' %}">
-    <script type="module" src="{% static 'js/script.js' %}"></script>
+<!--    <script type="module" src="{% static 'js/home_script.js' %}"></script>-->
     <link rel="shortcut icon" href="{%  static 'favicon.ico' %}">
 </head>
 <body>
@@ -24,7 +24,7 @@
     <div class="hlavicka fixed-top">
         <nav class="navbar navbar-expand-md navbar-dark punchPinkDark">
             <div class="container-fluid">
-                <a class="navbar-brand" href="">Trasovanie zásielok</a>
+                <a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'images/favicon.ico' %}">Trasovanie zásielok</a>
                 <!--<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">-->
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
                     <span class="navbar-toggler-icon"></span>
@@ -52,17 +52,19 @@
                 </div>
 
                 {% if request.user.is_authenticated %}
-                <a class="d-flex" href="{% url 'logout' %}">Odhlásenie</a>
-                <a href="{% url 'updateUser' %}">Edit</a>
+                <p class="whiteText me-3 mt-2">Prihlásený je používateľ: {{request.user}}</p>
+                <a type="button" class="logout-button btn btn-primary punchPink me-2" href="{% url 'logout' %}">Odhlásenie</a>
+<!--                <a href="{% url 'updateUser' %}">Edit</a>-->
                 {% else %}
-                <a class="d-flex" href="{% url 'login' %}">Prihlásenie</a>
+                <a type="button" class="login-button btn btn-primary me-2" href="{% url 'login' %}">Prihlásenie</a>
+                <a type="button" class="register-button btn btn-primary punchPinkDark me-2" href="{% url 'register' %}">Registrácia</a>
                 {% endif %}
             </div>
         </nav>
 
 
     </div>
-    <div class="main">
+    <main class="main">
         <div class="navigacia efekt-hover punchPinkDark" id="sidebar">
             <ul class="navbar-nav nav-pills flex-column p-2 sticky-top">
                 <li class="nav-item">
@@ -97,8 +99,13 @@
 
             {% endblock %}
         </div>
-    </div>
+    </main>
 
-
+<!--    <footer class="footer mt-auto py-3 punchPinkDark">-->
+<!--        <div class="container pata whiteText">-->
+<!--            @Dušan Terek 2023-->
+<!--        </div>-->
+<!--    </footer>-->
 </body>
+
 </html>

@@ -289,7 +289,6 @@ def simulatePackage(package):
     datetime_next = datetime_start + delta
     delta = timedelta(seconds=40)
     datetime_estimate = datetime_start + delta
-    # TODO: MAPA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     last_seen = str("Not implemented yet, sorry")
     stageCode = StageCode.objects.get(id=4)
     print("Stage4 od:" + str(datetime_start) + " do:" + str(datetime_next))
@@ -392,7 +391,6 @@ def editCompany(request, pk):
     if not request.user.is_staff:
         return HttpResponse('Na toto nemáš povolenie!!!')
 
-    # TODO: okolo 1:24:00  sa tento redirect ukazuje
     company = Company.objects.get(id=pk)
     # address = Address.objects.get(id=company.addressId.id)
     address_form = AddressForm(instance=company.addressId)

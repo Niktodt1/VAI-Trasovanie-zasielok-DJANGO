@@ -180,15 +180,6 @@ class Base {
 
     fillStatus(packages_count) {
         let HTML = ``;
-        // {% if total_packages == 0 %}
-        // <h1>Aktuálne nemáte žiadne zásielky</h1>
-        // {% elif total_packages == 1 %}
-        // <h1>Aktuálne máte 1 zásielku</h1>
-        // {% elif total_packages <= 4%}
-        // <h1>Aktuálne máte {{ total_packages }} zásielky</h1>
-        // {% else %}
-        // <h1>Aktuálne máte {{ total_packages }} zásielok</h1>
-        // {% endif %}
         if (packages_count === 0) {
             HTML = `
             <h1>Aktuálne nemáte žiadne zásielky</h1>`;
@@ -203,7 +194,7 @@ class Base {
             <h1>Aktuálne máte ${packages_count} zásielok</h1>`;
         }
         let statusElement = document.getElementById("status");
-        console.log("STATUS HAS: " + packages_count + " packages!")
+        // console.log("STATUS HAS: " + packages_count + " packages!")
         statusElement.innerHTML = HTML
     }
 
@@ -277,7 +268,7 @@ class Base {
                                 <div class="row">
                                     <div class="container-fluid col-6 mapa">
                                         <!--<img src="public/images/senohrad.png" alt="mapa">-->
-                                        MAP PREVIEW HERE
+                                        MAP PREVIEW Coming Soon™
                                     </div>
                                     <div class="container-fluid col-6 kontakty-maxi" >
                                         <div class="row mt-3">
@@ -390,7 +381,7 @@ class Base {
                 let lastStage = stages[stages_count - 1];
 
                 if (element == null) {
-                    console.log("Zásielka s id:" + zasielka.id + " sa nenašla a bude pridaná!");
+                    // console.log("Zásielka s id:" + zasielka.id + " sa nenašla a bude pridaná!");
                     //ziskanie HTML s doterjasimi zasielkami
                     // let outdated_packagesHTML = document.getElementById("packages_django").innerHTML;
                     //pridanie novej zasielky na zaciatok
@@ -404,7 +395,7 @@ class Base {
                     document.getElementById("accordion").innerHTML += packagesHTML;
                 } else {
                     //zasielka sa nasla a bude aktualizovaná
-                    console.log("Zásielka s id:" + zasielka.id + " sa našla a bude aktualizovaná!");
+                    // console.log("Zásielka s id:" + zasielka.id + " sa našla a bude aktualizovaná!");
                     let packageHTML = "";
                     let classes = collapse.classList;
                     let collapse_button_classes = collapse_button.firstElementChild.classList
@@ -460,7 +451,14 @@ class Base {
         })
     }
 
-
+    async getPackage(id) {
+        let response = await fetch("http://127.0.0.1:8000/api/packages/" + id);
+        if (response.status != 200) {
+            throw new Error("ERROR:" + response.status + " " + response.statusText);
+        }
+        let requested_package = await response.json()
+        let packagesHTML = "";
+    }
 
     async run() {
         console.log("BASE RUNNING!");
